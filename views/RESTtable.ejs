@@ -1,0 +1,75 @@
+<% include partials/header %>
+
+<div class="ui raised padded text container segment">
+    <h2 class="ui header">
+      <i class="snowflake icon"></i>
+      <div class="content">
+        RESTful routes
+      </div>
+    </h2>        
+    
+    <table class="ui selectable celled striped blue table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Path</th>
+          <th>HTTP Verb</th>
+          <th>Notes</th>
+          <th>Mongoose Method</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>INDEX</td>
+          <td>/blogs</td>
+          <td>GET</td>
+          <td>List all items in the db</td>
+          <td>Blog.find()</td>
+        </tr>
+        <tr>
+          <td>NEW</td>
+          <td>/blogs/new</td>
+          <td>GET</td>
+          <td>List a form to enter data</td>
+          <td>n/a - Not pulling from database</td>
+        </tr>
+        <tr>
+          <td>CREATE</td>
+          <td>/blogs</td>
+          <td>POST</td>
+          <td>Add an item to the db</td>
+          <td>Blog.create()</td>
+        </tr>
+        <tr>
+          <td>SHOW</td>
+          <td>/blogs/:id</td>
+          <td>GET</td>
+          <td>Show info from one item</td>
+          <td>Blog.findById()</td>
+        </tr>
+        <tr>
+          <td>EDIT</td>
+          <td>/blogs/:id/edit</td>
+          <td>GET</td>
+          <td>Pull form with item info</td>
+          <td>Blog.findById()</td>
+        </tr>
+        <tr>
+          <td>UPDATE</td>
+          <td>/blogs/:id</td>
+          <td>PUT</td>
+          <td>Modify item, then redirect</td>
+          <td>Blog.findByIdAndUpdate()</td>
+        </tr>
+        <tr>
+          <td>DESTROY</td>
+          <td>/blogs/:id</td>
+          <td>DELETE</td>
+          <td>Remove item, then redirect</td>
+          <td>Blog.findByIdAndRemove()</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+<% include partials/footer %>

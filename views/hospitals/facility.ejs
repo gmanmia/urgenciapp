@@ -1,0 +1,60 @@
+<% include ../partials/header %>
+
+<div class="ui container">
+    <div class="ui centered card">
+        <div class="image">
+            <img src=<%= hospital.logo %> alt="Logo Hospital">
+        </div>
+        <div class="content">
+            <a class="header"><%= hospital.name%></a>
+            <div class="meta">
+                <span><%= hospital.address%></span>
+            </div>
+            <div class="description">
+                <br><strong>Promedio de Espera: </strong><%= hospital.wait%> minutos
+                <br><strong>Capacidad en Urgencias: </strong><%= hospital.capacity%> camas
+                <br><em>Perfil creado por: <%= hospital.alias.username%></em>
+            </div>
+        </div>
+        <div class="extra content">
+            <a>
+              <i class="user icon"></i>
+              12 reportes 
+            </a>
+            <a href="/facilities/<%= hospital._id%>/report/new" class="ui right floated basic green button">Nuevo Reporte</a>
+        </div>
+        <div class="extra content">
+            <div class="ui two buttons">
+                <a class="ui basic gray button" href="/facilities">Regresar</a>
+                <% if(hospital.alias.id.equals(currentUser.id)){ %>
+                        <a class="ui basic orange button" href="/facilities/<%= hospital._id%>/edit">Editar</a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <hr>
+</div>
+
+<div class="ui four column doubling stackable grid container">
+    <% hospital.reports.forEach(function(report){ %> 
+        <div class="column">
+            <div class="ui card">
+                <div class="content">
+                    <div class="header"><%=report.alias.username%></div>
+                    <div class="meta"><%=report.created.toDateString()%></div>
+                    <div class="description">
+                        <p>Triage: <%=report.triageLevel%></p>
+                        <p>Hora Llegada: <%=report.arrivalTime%></p>
+                        <p>Hora Visita Médica: <%=report.seenTime%></p>
+                        <p>Comentarios: <%=report.comments%></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+<% include ../partials/footer %>

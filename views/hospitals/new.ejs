@@ -1,0 +1,33 @@
+<% include ../partials/header %>
+
+<div class="ui raised padded text container segment">
+    <div class="row">
+        <h1 style="text-align: center">Agregar Nuevo Hospital</h1>
+        <form action="/facilities" method="POST">
+          <div class="form-group">
+            <label for="name">Nombre de la Entidad</label>
+            <input type="text" class="form-control" name="hospital[name]" id="name" placeholder="Nombre de la Entidad" required>
+          </div>
+          <div class="form-group">
+            <label for="capacity">Capacidad de Camas en Urgencias</label>
+            <input type="text" class="form-control" name="hospital[capacity]" id="capacity" placeholder="Capacidad" required>
+          </div>
+          <div class="form-group">
+            <label for="address">Dirección</label>
+            <input type="text" class="form-control" name="hospital[address]" id="address" placeholder="Dirección" required>
+          </div>
+          <div class="form-group">
+            <label for="logo">Link del logo de la Entidad</label>
+            <input type="text" class="form-control" name="hospital[logo]" id="logo" placeholder="Link del logo" required>
+          </div>
+          <div class="form-group">
+            <label for="wait">Tiempo Estimado de Espera (min)</label>
+            <input type="text" class="form-control" name="hospital[wait]" id="wait" placeholder="Tiempo en minutos" required>
+          </div>
+          <button class="ui primary button" type="submit">Agregar</button>
+        </form>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>
