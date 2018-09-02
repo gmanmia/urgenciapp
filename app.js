@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var methodOverride  = require("method-override"),
     bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),

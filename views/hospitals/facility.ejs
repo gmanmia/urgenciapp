@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 
-<div class="ui container">
+<div class="ui special cards">
     <div class="ui centered card">
         <div class="image">
             <img src=<%= hospital.logo %> alt="Logo Hospital">
@@ -26,12 +26,13 @@
         <div class="extra content">
             <div class="ui two buttons">
                 <a class="ui basic gray button" href="/facilities">Regresar</a>
-                <% if(hospital.alias.id.equals(currentUser.id)){ %>
+                <% if(currentUser && hospital.alias.id.equals(currentUser.id)){ %>
                         <a class="ui basic orange button" href="/facilities/<%= hospital._id%>/edit">Editar</a>
                 <% } %>
             </div>
         </div>
     </div>
+    <div id="map" class="ui centered card"></div>
 </div>
 
 <div class="container">
@@ -56,5 +57,33 @@
         </div>
     <% }); %>
 </div>
+
+<script>
+  function initMap() {
+    var lat = <%= hospital.lat %>;
+    var lng = <%= hospital.lng %>;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `
+      <strong><%= hospital.name %><br />
+      <%= hospital.address %></strong>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYHRUVJDxi5PcqcbCySFLs1FEtmXtGmI4&callback=initMap&language=es&region=CO"></script>
 
 <% include ../partials/footer %>

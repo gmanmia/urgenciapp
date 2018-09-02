@@ -4,10 +4,12 @@ var mongoose = require("mongoose");
 var hospitalSchema = new mongoose.Schema({
     name: String,
     capacity: Number,
-    address: String,
     wait: Number,
     logo: String,
     rating: Number,
+    address: String,
+    lat: Number,
+    lng: Number,
     reports: [
         {
             type: mongoose.Schema.Types.ObjectId,
