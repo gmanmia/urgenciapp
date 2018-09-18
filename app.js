@@ -20,7 +20,8 @@ var facilityRoutes  = require("./routes/facility"),
     reportRoutes    = require("./routes/report"),
     indexRoutes     = require("./routes/index");
 
-mongoose.connect("mongodb://localhost:27017/urgenciapp", { useNewUrlParser: true });
+mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
