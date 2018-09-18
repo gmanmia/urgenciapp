@@ -26,7 +26,7 @@
         <div class="extra content">
             <div class="ui two buttons">
                 <a class="ui basic gray button" href="/facilities">Regresar</a>
-                <% if(currentUser && hospital.alias.id.equals(currentUser.id)){ %>
+                <% if(currentUser && hospital.alias.id.equals(currentUser.id) || currentUser && currentUser.isAdmin){ %>
                         <a class="ui basic orange button" href="/facilities/<%= hospital._id%>/edit">Editar</a>
                 <% } %>
             </div>
@@ -53,6 +53,16 @@
                         <p>Comentarios: <%=report.comments%></p>
                     </div>
                 </div>
+                <% if(currentUser && report.alias.id.equals(currentUser.id) || currentUser && currentUser.isAdmin){ %>
+                    <div class="extra content">
+                        <div class="ui two buttons">
+                            <a class="ui basic orange button" href="/facilities/<%= hospital._id%>/report/<%= report._id%>/edit">Editar</a>
+                            <form id="delete-form" action="/facilities/<%= hospital._id%>/report/<%= report._id%>?_method=DELETE" method="POST">
+                                <input type="submit" class="ui basic red button" value="Delete">
+                            </form>
+                        </div>
+                    </div>
+                <% } %>
             </div>
         </div>
     <% }); %>
