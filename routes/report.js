@@ -4,7 +4,7 @@ var express = require("express"),
     Hospital = require("../models/hospital"),
     Report = require("../models/report");
 
-
+// Display NEW form to create new report entry
 router.get("/facilities/:id/report/new", isLoggedIn, function(req, res){
    Hospital.findById(req.params.id, function(err, foundHospital){
        if(err){
@@ -15,6 +15,7 @@ router.get("/facilities/:id/report/new", isLoggedIn, function(req, res){
    });
 });
 
+// CREATE report
 router.post("/facilities/:id/report", isLoggedIn, function(req, res){
     Hospital.findById(req.params.id, function(err, foundHospital){
         if(err){
@@ -33,6 +34,7 @@ router.post("/facilities/:id/report", isLoggedIn, function(req, res){
                     //associate newReport to Facility
                     foundHospital.reports.push(newReport);
                     foundHospital.save();
+                    req.flash("success", "¡Gracias! Tu reporte fue creado exitosamente");
                     res.redirect('/facilities/' + foundHospital._id);
                 }
             });
@@ -59,6 +61,7 @@ router.put("/facilities/:id/report/:report_id", checkReportOwnership, function(r
             console.log(err);
             res.redirect("/facilities");
         } else {
+            req.flash("success", "Tu reporte ha sido actualizado exitosamente");
             res.redirect("/facilities/" + req.params.id)
         }
     });
@@ -70,8 +73,8 @@ router.delete("/facilities/:id/report/:report_id", checkReportOwnership, functio
        if(err){
            res.redirect("/facilities/" + req.params.id);
        } else {
-        //   req.flash("success", "Succesfully DELETED your report!");
-           res.redirect("/facilities/" + req.params.id);
+            req.flash("success", "Tu reporte ha sido borrado exitosamente");
+            res.redirect("/facilities/" + req.params.id);
        }
    });
 });
@@ -80,6 +83,7 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
+    req.flash("error", "Necesitas ingresar para hacer eso");
     res.redirect("/login");
 }
 
@@ -92,6 +96,7 @@ function checkReportOwnership(req, res, next){
              if(foundReport.alias.id.equals(req.user._id) || req.user.isAdmin){
                  next();
              } else {
+                 req.flash("error", "No tienes autorización para hacer eso");
                  res.redirect("back");
              }
          }

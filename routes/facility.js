@@ -56,6 +56,7 @@ router.post("/", isLoggedIn, function(req, res){
            if(err){
                console.log(err);
            } else {
+               req.flash("success", "El perfil ha sido creado exitosamente");
                res.redirect("/facilities");
            }
         });
@@ -101,6 +102,7 @@ router.put("/:id", checkOwnership, function(req, res){
                 console.log(err);
                 res.redirect("/facilities");
             } else {
+                req.flash("success", "El perfil ha sido actualizado exitosamente");
                 res.redirect("/facilities/" + req.params.id)
             }
         });
@@ -113,6 +115,7 @@ router.delete("/:id", checkOwnership, function(req, res){
        if(err){
            res.redirect("/facilities");
        } else {
+           req.flash("success", "El perfil ha sido borrado exitosamente");
            res.redirect("/facilities");
        }
    });
@@ -122,6 +125,7 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
+    req.flash("error", "Tienes que regitrarte para hacer eso");
     res.redirect("/login")
 }
 
@@ -134,6 +138,7 @@ function checkOwnership(req, res, next){
              if(foundHospital.alias.id.equals(req.user._id)){
                  next();
              } else {
+                 req.flash("error", "No estás autorizado para hacer eso")
                  res.redirect("back");
              }
          }

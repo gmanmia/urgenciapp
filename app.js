@@ -4,7 +4,8 @@ var methodOverride  = require("method-override"),
     bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),
     express     = require("express"),
-    app         = express();
+    app         = express(),
+    flash       = require("connect-flash");
 // SCHEMA setup + seed database
 var Hospital    = require("./models/hospital"),
     Report      = require("./models/report"),
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+app.use(flash());
 // seedDB();
 
 // Passport (authentication) configuration
@@ -41,6 +43,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 

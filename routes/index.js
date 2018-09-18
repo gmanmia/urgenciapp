@@ -17,9 +17,11 @@ router.post("/register", function(req, res){
     User.register(newUser, req.body.password, function(err, user){
         if(err){
             console.log(err);
+            req.flash("error", err.message);
             res.redirect("/register");
         }
         passport.authenticate("local")(req, res, function(){
+            req.flash("success", "¡Bienvenid@ a UrgenciApp!  " + user.username + " , tu usuario fue creado exitosamente :)");
             res.redirect("/facilities");
         })
     });
@@ -47,6 +49,7 @@ router.get("/about", function(req,res){
 
 router.get("/logout", function(req, res){
     req.logout();
+    req.flash("success", "Has salido exitosamente");
     res.redirect("/");
 });
 
@@ -58,6 +61,7 @@ function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()){
         return next();
     }
+    req.flash("error", "Tienes que ingresar para poder hacer eso");
     res.redirect("/login");
 }
 
