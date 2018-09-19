@@ -22,7 +22,7 @@
                         <li><a href="/register">Registrarse</a></li>
                         <li><a href="/about">Nosotros</a></li>
                     <% } else { %>
-                        <li><a href="#">Conectado como <strong><em><%= currentUser.username %></em></strong></a></li>
+                        <li><a href="/users/<%=currentUser._id%>">Registrado Como <%= currentUser.username %></a></li>
                         <li><a href="/facilities">Listado</a></li>
                         <li><a href="/search">Búsqueda</a></li>
                         <li><a href="/logout">Salir</a></li>
