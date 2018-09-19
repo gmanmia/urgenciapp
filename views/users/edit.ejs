@@ -1,43 +1,41 @@
+<% include ../partials/header %>
 
+<div class="ui container text segment">
+    <div class="ui form">
+        <h3 class="ui dividing header">Editar el perfil de <em><%= user.username%></em></h3>
+        <form class="ui form" action="/users/<%=user._id%>/edit?_method=PUT" method="POST">
+            <div class="field">
+                <label>Nombre y Apellido</label>
+                <div class="two fields">
+                    <div class="field">
+                        <input type="text" name="updatedInfo[firstName]" value="<%=user.firstName%>">    
+                    </div>
+                    <div class="field">
+                        <input type="text" name="updatedInfo[lastName]" value="<%=user.lastName%>">
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label>Email y URL Foto</label>
+                <div class="two fields">
+                    <div class="field">
+                        <input type="text" name="updatedInfo[email]" value="<%=user.email%>">
+                    </div>
+                    <div class="field">
+                        <input type="text" name="updatedInfo[avatar]" value="<%=user.avatar%>">
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label>Acerca De</label>
+                <input type="text" name="updatedInfo[about]" value="<%=user.about%>">
+            </div>
+            <button class="ui positive basic button tiny" type="submit">Actualizar</button>
+    
+        </form>
+        <br><button href="/users/<%=user._id%>" class="ui negative basic button tiny right">Cancelar</button>
+    </div>
 
-<div class="panel-body">
-    <h1 style="text-align: center">Editar el Perfil de <%= user.username%></h1>
-    <form action="/users/<%=user._id%>/edit?_method=PUT" method="POST" class="form-horizontal" role="form">
-        <div class="form-group">
-            <label for="firstname" class="col-md-3 control-label">Nombre</label>
-            <div class="col-md-9">
-                <input type="text" class="form-control" name="updatedInfo[firstName]" value="<%=user.firstName%>">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="firstname" class="col-md-3 control-label">Apellido</label>
-            <div class="col-md-9">
-                <input type="text" class="form-control" name="updatedInfo[lastName]" value="<%=user.lastName%>">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="email" class="col-md-3 control-label">Email</label>
-            <div class="col-md-9">
-                <input type="text" class="form-control" name="updatedInfo[email]" value="<%=user.email%>">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="lastname" class="col-md-3 control-label">URL de foto de perfil</label>
-            <div class="col-md-9">
-                <input type="text" class="form-control" name="updatedInfo[avatar]" value="<%=user.avatar%>">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="password" class="col-md-3 control-label">Acerca de</label>
-            <div class="col-md-9">
-                <input type="password" class="form-control" name="updatedInfo[about]" value="<%=user.about%>">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-3 col-md-9">
-                <button type="submit" class="btn btn-primary"> Actualizar</button>
-            </div>
-        </div>
-    </form>
-    <a href="/users/<%=user._id%>"Cancelar</a>
 </div>
+
+<% include ../partials/footer %>
