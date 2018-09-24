@@ -5,7 +5,7 @@ var express = require("express"),
     Report = require("../models/report");
 
 // Display NEW form to create new report entry
-router.get("/facilities/:id/report/new", isLoggedIn, function(req, res){
+router.get("/new", isLoggedIn, function(req, res){
    Hospital.findById(req.params.id, function(err, foundHospital){
        if(err){
            console.log(err);
@@ -16,7 +16,7 @@ router.get("/facilities/:id/report/new", isLoggedIn, function(req, res){
 });
 
 // CREATE report
-router.post("/facilities/:id/report", isLoggedIn, function(req, res){
+router.post("/", isLoggedIn, function(req, res){
     Hospital.findById(req.params.id, function(err, foundHospital){
         if(err){
             console.log(err);
@@ -43,7 +43,7 @@ router.post("/facilities/:id/report", isLoggedIn, function(req, res){
 });
 
 // EDIT - modify info about the report for any hospital
-router.get("/facilities/:id/report/:report_id/edit", checkReportOwnership, function(req, res){
+router.get("/:report_id/edit", checkReportOwnership, function(req, res){
    Report.findById(req.params.report_id, function(err, foundReport){
        if(err){
            console.log(err);
@@ -55,7 +55,7 @@ router.get("/facilities/:id/report/:report_id/edit", checkReportOwnership, funct
 });
 
 // UPDATE - modify the comment based on user input
-router.put("/facilities/:id/report/:report_id", checkReportOwnership, function(req, res){
+router.put("/:report_id", checkReportOwnership, function(req, res){
     Report.findByIdAndUpdate(req.params.report_id, req.body.report, function(err, updatedReport){
         if(err){
             console.log(err);
@@ -68,7 +68,7 @@ router.put("/facilities/:id/report/:report_id", checkReportOwnership, function(r
 });
 
 // DESTROY - remove a report
-router.delete("/facilities/:id/report/:report_id", checkReportOwnership, function(req, res){
+router.delete("/:report_id", checkReportOwnership, function(req, res){
    Report.findByIdAndRemove(req.params.report_id, function(err){
        if(err){
            res.redirect("/facilities/" + req.params.id);

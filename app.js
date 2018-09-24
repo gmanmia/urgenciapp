@@ -9,16 +9,16 @@ var methodOverride  = require("method-override"),
 // SCHEMA setup + seed database
 var Hospital    = require("./models/hospital"),
     Report      = require("./models/report"),
-    User        = require("./models/user"),
-    // seedDB      = require("./seeds"),
+    User        = require("./models/user");
 // AUTHENTICATION packages
-    passport    = require("passport"),
+var passport    = require("passport"),
     LocalStrategy = require("passport-local");
-
 //initialize routes
 var facilityRoutes  = require("./routes/facility"),
     reportRoutes    = require("./routes/report"),
-    indexRoutes     = require("./routes/index");
+    indexRoutes     = require("./routes/index"),
+    userRoutes      = require("./routes/user"),
+    passwordRoutes  = require("./routes/password");
 
 var url = process.env.DATABASEURL || "mongodb://localhost:27017/urgenciapp";
 mongoose.connect(url, { useNewUrlParser: true });
@@ -28,7 +28,6 @@ app.use(methodOverride("_method"));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(flash());
-// seedDB();
 
 // Passport (authentication) configuration
 app.use(require("express-session")({
@@ -52,7 +51,9 @@ app.use(function(req, res, next){
 
 app.use("/", indexRoutes);
 app.use("/facilities", facilityRoutes);
-app.use("/", reportRoutes);
+app.use("/facilities/:id/report", reportRoutes);
+app.use("/users", userRoutes);
+app.use("/password", passwordRoutes);
 
 app.get("*", function(req,res){
     res.send("Page Not Found!  :(  ")

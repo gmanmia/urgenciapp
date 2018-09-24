@@ -1,0 +1,24 @@
+<% include ../partials/header %>
+
+<div class="ui container">
+    <form class="ui form" action="/password/reset/<%= token %>" method="POST">
+        <h4 class="ui dividing header">Ingresa tu nueva contraseña</h4>
+        <div class="field">
+            <div class="two fields">
+                <div class="field">
+                    <label>Nueva Contraseña:</label>
+                    <input type="password" name="password" placeholder="Usa combinación de caracteres alfanuméricos" autofocus required>
+                </div>
+                <div class="field">
+                    <label for="confirm">Confirmar Contraseña:</label>
+                    <input type="password" name="confirm" placeholder="Confirmar la combinación" required>
+                </div>
+            </div>
+        </div>
+        <div class="field" tabindex="0">
+            <button class="btn btn-primary">Actualizar Contraseña</button>    
+        </div>
+    </form>
+
+</div>
+<% include ../partials/footer %>

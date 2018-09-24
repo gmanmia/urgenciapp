@@ -1,4 +1,4 @@
-<% include partials/header %>
+<% include ../partials/header %>
 
 <div class="container">    
     <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -8,7 +8,7 @@
                 <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="/login">Ingresa</a></div>
             </div>  
             <div class="panel-body" >
-                <form action="/register" method="POST" class="form-horizontal" role="form">
+                <form action="/users/register" method="POST" class="form-horizontal" role="form">
                     <div id="signupalert" style="display:none" class="alert alert-danger">
                         <p>Error:</p>
                         <span></span>
@@ -70,4 +70,4 @@
      </div> 
 </div>
 
-<% include partials/footer %>
+<% include ../partials/footer %>

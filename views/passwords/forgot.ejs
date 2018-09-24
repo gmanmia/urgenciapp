@@ -1,0 +1,19 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <h2 class="ui header">
+          <div class="content">
+            <i class="user secret icon"></i>¿Olvidaste tu contraseña? 
+            <div class="sub header">Aquí puedes crear una nueva contraseña con el email que registraste</div>
+          </div>
+    </h2>
+    <form class="ui form" action="/password/forgot" method="POST">
+        <div class="field">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="ejemplo@email.com" autofocus>
+        </div>
+        <button class="ui button" type="submit">Enviar Solicitud</button>
+    </form>
+</div>
+
+<% include ../partials/footer %>

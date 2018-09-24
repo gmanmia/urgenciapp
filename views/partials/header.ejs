@@ -36,7 +36,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <% if(!currentUser) { %>
                         <li><a href="/login">Login</a></li>
-                        <li><a href="/register">Registrarse</a></li>
+                        <li><a href="/users/register">Registrarse</a></li>
                         <li><a href="/about">Nosotros</a></li>
                     <% } else { %>
                         <li><a href="/users/<%=currentUser._id%>">Registrado como:  <em><%= currentUser.username %></em></a></li>
