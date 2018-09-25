@@ -1,7 +1,8 @@
-var express = require("express"),
-    router = express.Router(),
-    passport = require("passport"),
-    Hospital = require("../models/hospital");
+var express     = require("express"),
+    router      = express.Router({mergeParams: true}),
+    passport    = require("passport"),
+    Hospital    = require("../models/hospital"),
+    middleware  = require("../middleware");
     
 var NodeGeocoder = require('node-geocoder');
  
@@ -15,7 +16,7 @@ var options = {
 var geocoder = NodeGeocoder(options);
     
 // INDEX - show all hospital wait times
-router.get("/", isLoggedIn, function(req,res){
+router.get("/", middleware.isLoggedIn, function(req,res){
     Hospital.find({}, function(err, allHospitals){
         if(err){
             console.log(err);
@@ -26,12 +27,12 @@ router.get("/", isLoggedIn, function(req,res){
 });
 
 // NEW - display the form to add a new hospital to the db
-router.get("/new", isLoggedIn, function(req,res){
+router.get("/new", middleware.isLoggedIn, function(req,res){
     res.render("hospitals/new");
 });
 
 // CREATE - add item to the database and redirect to update listing
-router.post("/", isLoggedIn, function(req, res){
+router.post("/", middleware.isLoggedIn, function(req, res){
     var newName = req.body.hospital.name,
         newLogo = req.body.hospital.logo,
         newCapacity = req.body.hospital.capacity,
@@ -75,7 +76,7 @@ router.get("/:id", function(req,res){
 });
 
 // EDIT - modify info about the hospital
-router.get("/:id/edit", checkOwnership, function(req, res){
+router.get("/:id/edit", middleware.checkOwnership, function(req, res){
    Hospital.findById(req.params.id, function(err, foundHospital){
        if(err){
            console.log(err);
@@ -87,7 +88,7 @@ router.get("/:id/edit", checkOwnership, function(req, res){
 });
 
 // UPDATE - modify form based on user input
-router.put("/:id", checkOwnership, function(req, res){
+router.put("/:id", middleware.checkOwnership, function(req, res){
     geocoder.geocode(req.body.hospital.address, function (err, data) {
         if (err || !data.length) {
             req.flash("error", "Invalid address");
@@ -110,7 +111,7 @@ router.put("/:id", checkOwnership, function(req, res){
 });
 
 // DESTROY - remove a record
-router.delete("/:id", checkOwnership, function(req, res){
+router.delete("/:id", middleware.checkOwnership, function(req, res){
    Hospital.findByIdAndRemove(req.params.id, function(err){
        if(err){
            res.redirect("/facilities");
@@ -121,29 +122,5 @@ router.delete("/:id", checkOwnership, function(req, res){
    });
 });
 
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    req.flash("error", "Tienes que regitrarte para hacer eso");
-    res.redirect("/login")
-}
-
-function checkOwnership(req, res, next){
-    if(req.isAuthenticated()){
-     Hospital.findById(req.params.id, function(err, foundHospital){
-         if(err){
-             res.redirect("back");
-         } else {
-             if(foundHospital.alias.id.equals(req.user._id)){
-                 next();
-             } else {
-                 req.flash("error", "No estás autorizado para hacer eso")
-                 res.redirect("back");
-             }
-         }
-     })   
-    }
-}
 
 module.exports = router;

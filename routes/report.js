@@ -1,11 +1,12 @@
-var express = require("express"),
-    router = express.Router(),
-    passport = require("passport"),
-    Hospital = require("../models/hospital"),
-    Report = require("../models/report");
+var express     = require("express"),
+    router      = express.Router({mergeParams: true}),
+    passport    = require("passport"),
+    Hospital    = require("../models/hospital"),
+    Report      = require("../models/report"),
+    middleware  = require("../middleware");
 
 // Display NEW form to create new report entry
-router.get("/new", isLoggedIn, function(req, res){
+router.get("/new", middleware.isLoggedIn, function(req, res){
    Hospital.findById(req.params.id, function(err, foundHospital){
        if(err){
            console.log(err);
@@ -16,7 +17,7 @@ router.get("/new", isLoggedIn, function(req, res){
 });
 
 // CREATE report
-router.post("/", isLoggedIn, function(req, res){
+router.post("/", middleware.isLoggedIn, function(req, res){
     Hospital.findById(req.params.id, function(err, foundHospital){
         if(err){
             console.log(err);
@@ -43,7 +44,7 @@ router.post("/", isLoggedIn, function(req, res){
 });
 
 // EDIT - modify info about the report for any hospital
-router.get("/:report_id/edit", checkReportOwnership, function(req, res){
+router.get("/:report_id/edit", middleware.checkReportOwnership, function(req, res){
    Report.findById(req.params.report_id, function(err, foundReport){
        if(err){
            console.log(err);
@@ -55,7 +56,7 @@ router.get("/:report_id/edit", checkReportOwnership, function(req, res){
 });
 
 // UPDATE - modify the comment based on user input
-router.put("/:report_id", checkReportOwnership, function(req, res){
+router.put("/:report_id", middleware.checkReportOwnership, function(req, res){
     Report.findByIdAndUpdate(req.params.report_id, req.body.report, function(err, updatedReport){
         if(err){
             console.log(err);
@@ -68,7 +69,7 @@ router.put("/:report_id", checkReportOwnership, function(req, res){
 });
 
 // DESTROY - remove a report
-router.delete("/:report_id", checkReportOwnership, function(req, res){
+router.delete("/:report_id", middleware.checkReportOwnership, function(req, res){
    Report.findByIdAndRemove(req.params.report_id, function(err){
        if(err){
            res.redirect("/facilities/" + req.params.id);
@@ -78,30 +79,5 @@ router.delete("/:report_id", checkReportOwnership, function(req, res){
        }
    });
 });
-
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    req.flash("error", "Necesitas ingresar para hacer eso");
-    res.redirect("/login");
-}
-
-function checkReportOwnership(req, res, next){
-    if(req.isAuthenticated()){
-     Report.findById(req.params.report_id, function(err, foundReport){
-         if(err){
-             res.redirect("back");
-         } else {
-             if(foundReport.alias.id.equals(req.user._id) || req.user.isAdmin){
-                 next();
-             } else {
-                 req.flash("error", "No tienes autorización para hacer eso");
-                 res.redirect("back");
-             }
-         }
-     })   
-    }
-}
 
 module.exports = router;
