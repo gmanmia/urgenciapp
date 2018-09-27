@@ -13,7 +13,7 @@
             <div class="description">
                 <br><strong>Promedio de Espera: </strong><%= hospital.wait%> minutos
                 <br><strong>Capacidad en Urgencias: </strong><%= hospital.capacity%> camas
-                <br><em>Perfil creado por: <%= hospital.alias.username%></em>
+                <br><em>Perfil creado por: <a href="/users/<%= hospital.alias.id%>"><%= hospital.alias.username%></a></em>
             </div>
         </div>
         <div class="extra content">
@@ -44,7 +44,7 @@
         <div class="column">
             <div class="ui card">
                 <div class="content">
-                    <div class="header"><%=report.alias.username%></div>
+                    <div class="header"><a href="/users/<%=report.alias.id%>"><%=report.alias.username%></a></div>
                     <div class="meta"><%=report.created.toDateString()%></div>
                     <div class="description">
                         <p>Triage: <%=report.triageLevel%></p>

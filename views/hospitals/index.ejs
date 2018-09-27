@@ -1,51 +1,58 @@
 <% include ../partials/header %>
 
-<div class="container">
-  <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4">Hospitales Atendiendo Urgencias</h1>
-      <p class="lead">Estos son las entidades con datos reportados por usuarios en las ultimas 24 horas</p>
-      <div class="ui floating labeled icon dropdown button">
-        <i class="filter icon"></i>
-        <span class="text">Filtrar por Localidad</span>
-        <div class="menu">
-          <div class="header"><i class="tags icon"></i>Localidad:</div> 
-          <div class="item">Usaquen</div>
-          <div class="item">Chapinero</div>
-          <div class="item">Santa Fe</div>
-          <div class="item">San Cristobal</div>
-          <div class="item">Usme</div>
-          <div class="item">Tunjuelito</div>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Hospitales Atendiendo Urgencias</h1>
+                <p class="lead">Estos son las entidades con datos reportados por usuarios en las ultimas 24 horas</p>
+                <div>
+                    <span>Mostrar hospitales en esta 
+                        <div class="ui inline dropdown">
+                            <div class="text">ciudad</div>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <div class="item" data-text="ciudad">Bogotá</div>
+                                <div class="item" data-text="ciudad">Medellín (pronto)</div>
+                                <div class="item" data-text="ciudad">Cali (pronto)</div>
+                                <div class="item" data-text="ciudad">Barranquilla (pronto)</div>
+                                <div class="item" data-text="ciudad">Cartagena (pronto)</div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="extras">
-          <a class="ui floated basic button" href="/facilities/new"
-              >Agregar Un Hospital<i class="angle double right icon"></i></a>
-      </div>
     </div>
-  </div>
-</div>
 
-<div class="ui five column doubling stackable grid container">
-  <div class="ui huge header">Bogotá</div>
-  <!--<div class="ui top attached segment">-->
-  <div class="ui cards">
-    <% hospitals.forEach(function(hospital){ %>
-    <div class="card">
-      <div class="ui tiny centered images">
-        <img src= <%= hospital.logo %> alt="Logo Hospital">
-      </div>
-      <div class="content">
-          <div class="header"><%= hospital.name %></div>
-          <div class="meta"><%= hospital.address %></div>
-          <div class="description">Tiempo aprox. de espera:  <strong><%=hospital.wait%> minutos</strong></div>
-      </div>
-      <div class="extra">
-        <div><a href="/facilities/<%=hospital._id%>" class="ui basic gray button">Perfil del Hospital</a></div>
+    
+    <div class="ui five column doubling stackable grid container">
+      <div class="ui huge header">Bogotá</div>
+      <!--<div class="ui top attached segment">-->
+      <div class="ui cards">
+        <% hospitals.forEach(function(hospital){ %>
+        <div class="card">
+          <div class="ui tiny centered images">
+            <img src= <%= hospital.logo %> alt="Logo Hospital">
+          </div>
+          <div class="content">
+              <div class="header"><%= hospital.name %></div>
+              <div class="meta"><%= hospital.address %></div>
+              <div class="description">Tiempo aprox. de espera:  <strong><%=hospital.wait%> minutos</strong></div>
+          </div>
+          <div class="extra">
+            <div><a href="/facilities/<%=hospital._id%>" class="ui basic gray button">Perfil del Hospital</a></div>
+          </div>
+        </div>
+        <% }); %>
       </div>
     </div>
-    <% }); %>
-  </div>
-</div>
+    
+    <br><br>
+    <div class="ui container">
+        <div class="extras">
+            <a class="ui positive button right" href="/facilities/new"
+                >Agregar Un Hospital<i class="angle double right icon"></i></a>
+        </div>
+    </div>
 
 <% include ../partials/footer %>

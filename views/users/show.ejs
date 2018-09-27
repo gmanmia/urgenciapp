@@ -11,19 +11,19 @@
         </div>
         <div class="content">
             <a class="header"><%=user.firstName%></a>
-        <div class="meta">
-            <span class="date">Miembro desde 2018</span>
+            <div class="meta">
+                <span class="date">Miembro desde 2018</span>
+            </div>
+            <div class="description">
+                <%=user.about%>
+            </div>
         </div>
-        <div class="description">
-            <%=user.about%>
+        <div class="extra content">
+            <a><i class="user icon"></i>5 Reportes</a>
+            <% if(currentUser && user._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                <br><br><a href="/users/<%= user._id%>/edit" class="ui negative basic button mini">Editar</a>
+            <% } %>
         </div>
-      </div>
-      <div class="extra content">
-        <a><i class="user icon"></i>5 Reportes</a>
-        <% if(currentUser && user._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-            <br><br><a href="/users/<%= user._id%>/edit" class="ui negative basic button mini">Editar</a>
-        <% } %>
-      </div>
     </div>
 </div>
 
