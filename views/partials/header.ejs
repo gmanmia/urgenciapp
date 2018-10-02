@@ -40,6 +40,7 @@
                         <li><a href="/about">Nosotros</a></li>
                     <% } else { %>
                         <li><a href="/users/<%=currentUser._id%>">Registrado como:  <em><%= currentUser.username %></em></a></li>
+                        <li><a href="/users/<%=currentUser._id%>/reports">Reportes</a></li>
                         <li><a href="/facilities">Listado</a></li>
                         <li><a href="/search">Búsqueda</a></li>
                         <li><a href="/logout">Salir</a></li>

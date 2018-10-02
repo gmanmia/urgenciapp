@@ -14,7 +14,10 @@ var reportSchema = new mongoose.Schema({
     arrivalTime: String,
     seenTime: String,
     comments: String,
-    created: {type: Date, default: Date.now}
+    created: {type: Date, default: Date.now},
+    checkIn: Date,
+    checkOut: Date,
+    openStatus: {type: Boolean, default: true}
 });
 
 module.exports = mongoose.model("Report", reportSchema);

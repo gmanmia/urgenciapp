@@ -4,27 +4,60 @@
     <div class="row">
         <h1 style="text-align: center">Agregar Reporte a <%= hospital.name%></h1>
         <form action="/facilities/<%=hospital._id %>/report" method="POST">
-          <div class="form-group">
-            <label for="triageLevel">Nivel de Triage Asignado</label>
-            <input type="number" class="form-control" name="report[triageLevel]" id="triageLevel" placeholder="Numero (1-5)" required>
-          </div>
-          <div class="form-group">
-            <label for="arrivalTime">Hora de Llegada a Urgencias</label>
-            <input type="time" class="form-control" name="report[arrivalTime]" id="arrivalTime" placeholder="Hora en formato hh:mm am/pm" required>
-          </div>
-          <div class="form-group">
-            <label for="seenTime">Hora de evaluación médica</label>
-            <input type="time" class="form-control" name="report[seenTime]" id="seemTime" placeholder="Hora en formato hh:mm am/pm" required>
-          </div>
-          <div class="form-group">
-            <label for="comments">Comentarios de la visita</label>
-            <input type="text" class="form-control" name="report[comments]" id="comments" placeholder="Comentarios positivos y negativos" required>
-          </div>
-          <button class="ui primary button" type="submit">Agregar</button>
+            <div class="form-group">
+                <label for="arrivalTime">Fecha y Hora de ingreso</label>
+                <input id="todayDate" type="date" name="report[arrivalDate]" >
+                <input id="todayTime" type="time" name="report[arrivalTime]" >
+                <script>
+                    var date = new Date();
+                    var currentDate = date.toISOString().slice(0,10);
+                    var currentTime = date.getHours() + ':' + date.getMinutes();
+                    document.getElementById('todayDate').value = currentDate;
+                    document.getElementById('todayTime').value = currentTime;
+                </script>
+            </div>
+            <div class="form-group">
+                <label for="triageLevel">Nivel de Triage Asignado</label>
+                <input type="number" class="form-control" name="report[triageLevel]" id="triageLevel" placeholder="Numero (1-5)" required>
+            </div>
+            <div class="form-group">
+                <label for="comments">Comentarios Iniciales</label>
+                <input type="text" class="form-control" name="report[comments]" id="comments" placeholder="Comentarios iniciales positivos y negativos" required>
+            </div>
+            <button class="ui green button" type="submit">Check In</button>
         </form>
         <a class="ui basic button" href="/facilities/<%=hospital._id %>">Cancelar</a>
     </div>
 </div>
+
+
+
+
+<!--<div class="ui raised padded text container segment">-->
+<!--    <div class="row">-->
+<!--        <h1 style="text-align: center">Agregar Reporte a <% %></h1>-->
+<!--        <form action="/facilities/<% %>/report" method="POST">-->
+<!--          <div class="form-group">-->
+<!--            <label for="triageLevel">Nivel de Triage Asignado</label>-->
+<!--            <input type="number" class="form-control" name="report[triageLevel]" id="triageLevel" placeholder="Numero (1-5)" required>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="arrivalTime">Hora de Llegada a Urgencias</label>-->
+<!--            <input type="time" class="form-control" name="report[arrivalTime]" id="arrivalTime" placeholder="Hora en formato hh:mm am/pm" required>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="seenTime">Hora de evaluación médica</label>-->
+<!--            <input type="time" class="form-control" name="report[seenTime]" id="seemTime" placeholder="Hora en formato hh:mm am/pm" required>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--            <label for="comments">Comentarios de la visita</label>-->
+<!--            <input type="text" class="form-control" name="report[comments]" id="comments" placeholder="Comentarios positivos y negativos" required>-->
+<!--          </div>-->
+<!--          <button class="ui primary button" type="submit">Agregar</button>-->
+<!--        </form>-->
+<!--        <a class="ui basic button" href="/facilities/<%=hospital._id %>">Cancelar</a>-->
+<!--    </div>-->
+<!--</div>-->
 
 
 <% include ../partials/footer %>

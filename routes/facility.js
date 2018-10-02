@@ -2,9 +2,10 @@ var express     = require("express"),
     router      = express.Router({mergeParams: true}),
     passport    = require("passport"),
     Hospital    = require("../models/hospital"),
-    middleware  = require("../middleware");
-    
-var NodeGeocoder = require('node-geocoder');
+    middleware  = require("../middleware"),
+    NodeGeocoder = require('node-geocoder');
+
+const { DateTime } = require('luxon');
  
 var options = {
   provider: 'google',
@@ -70,7 +71,8 @@ router.get("/:id", function(req,res){
         if(err){
             console.log(err);
         } else {
-            res.render("hospitals/facility", {hospital: foundHospital});
+            var now = DateTime.local().setZone('America/Bogota');
+            res.render("hospitals/facility", {hospital: foundHospital, now: now});
         }
     });
 });

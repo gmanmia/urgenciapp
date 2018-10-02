@@ -1,10 +1,11 @@
 var express     = require("express"),
-    router      = express.Router(),
+    router      = express.Router({mergeParams: true}),
     passport    = require("passport"),
     Hospital    = require("../models/hospital"),
     Report      = require("../models/report"),
-    User        = require("../models/user");
- 
+    User        = require("../models/user"),
+    mongoose    = require("mongoose");
+const { DateTime } = require("luxon");
     
 // SHOW page register new user  
 router.get("/register", function(req,res){
@@ -75,5 +76,21 @@ router.put("/:id/edit", function(req, res){
         }
     });
 });
+
+
+// SHOW all reports by user
+router.get("/:id/reports", function(req, res){
+    Report.find().where("alias.id").equals(req.params.id).exec(function(err, reportsByUser){
+        if(err){
+            console.log(err);
+            req.flash("error", "No se pudo crear listado");
+            res.redirect("back");
+        } else {
+            console.log(reportsByUser);
+            res.render("users/reportList", {reports: reportsByUser, DateTime: DateTime});
+        }
+    });
+});
+
 
 module.exports = router;
