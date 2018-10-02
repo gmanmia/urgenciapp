@@ -3,17 +3,16 @@
 <div class="ui container">
     <table class="ui selectable celled table">
         <thead>
-            <tr><th>Fecha</th>
-            <!--<th>Estado</th>-->
-            <th>Estado</th>
-            <th>Acción</th>
-            
-        </tr></thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
         <tbody>
             <% reports.forEach(function(report){ %>
             <tr>
                 <td data-label="date"><%= report.checkIn.toLocaleString('es-CO', { timeZone: 'America/Bogota' }) %></td> 
-                <!--.toLocaleString()   Object.assign({ locale: 'es' }, DateTime.DATETIME_FULL)-->
                 <td data-label="openStatus">
                     <% if(report.openStatus){ %>
                         Falta "Check Out"
@@ -29,7 +28,5 @@
         </tbody>
     </table>
 </div>
-
-
 
 <% include ../partials/footer %>

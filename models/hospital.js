@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
 
-// SCHEMA Setup
 var hospitalSchema = new mongoose.Schema({
     name: String,
     capacity: Number,

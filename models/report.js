@@ -1,7 +1,5 @@
 var mongoose = require("mongoose");
 
-// Schema setup
-
 var reportSchema = new mongoose.Schema({
     alias: {
         id: {
